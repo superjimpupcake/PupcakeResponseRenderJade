@@ -32,8 +32,14 @@ class Main extends Pupcake\plugin
                     if(strlen($view_diretory) > 0){
                         $view_path = $view_diretory."/".$view_path;
                     }
-                    $output = $jade->render($view_path);
-                    file_put_contents($view_path.".php", $output);
+
+                    $view_cache_enabled = $event->props('view_cache_enabled');
+
+                    if(!$view_cache_enabled){
+                        $output = $jade->render($view_path);
+                        file_put_contents($view_path.".php", $output);
+                    }
+
                     if(is_readable($view_path.".php")){
                         extract($event->props('data'));
                         require $view_path.".php";
@@ -42,4 +48,5 @@ class Main extends Pupcake\plugin
             }
         });
     }
+
 }
