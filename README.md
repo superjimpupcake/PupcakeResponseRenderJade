@@ -15,8 +15,12 @@ Before we get started, we would like to set up the following file structures for
 * public/views --- the folder contains all the view files
 * vendor --- the vendor folder, storing all composer packages
 * vendor/autoload.php --- the comoser's auto-generated file for class autoloading
-* packages --- the folder to store 3rd party libraries
-* packages/php-jade --- the folder to store the everzet/jade.php library (https://github.com/everzet/jade.php)
+
+We then need to install jade compiler globally by: npm install -g jade 
+
+We also need to make sure php's shell_exec function can execute the jade compiler /usr/local/bin/jade
+
+See more details on https://github.com/superjimpupcake/PHPNativeJadeRenderer since this plugin replies on PHPNativeJade/Renderer
 
 Now we are going to edit public/index.php
 ```php
@@ -28,7 +32,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $app = new Pupcake\Pupcake();
 
 $app->usePlugin("Pupcake.ResponseRender"); //this is required
-$app->usePlugin("Pupcake.ResponseRenderJade");
+$app->usePlugin("Pupcake.ResponseRenderJade", array('jade_compiler' => '/usr/local/bin/jade'));
 
 $app->setViewDirectory("../views");
 $app->setViewEngine("jade");
