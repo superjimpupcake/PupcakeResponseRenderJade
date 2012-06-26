@@ -5,7 +5,6 @@
 namespace Pupcake\ResponseRenderJade;
 
 use Pupcake;
-use PHPNativeJade\Renderer;
 
 class Main extends Pupcake\plugin
 {
@@ -20,9 +19,12 @@ class Main extends Pupcake\plugin
             if($view_engine == "jade"){
                 $path_info = pathinfo($event->props('view_path'));
                 if($path_info['extension'] == 'jade'){
+                    if(!isset($config['jade_compiler'])){
+                        throw new ConfigurationException("Missing jade compiler, please set jade_compiler in configuration!");
+                    }
                     //now everything is good, start rendering
-
-                    $renderer = new PHPNativeJade\Renderer();
+                    $renderer = new \PHPNativeJade\Renderer();
+                    $renderer->setNativeJadeCompiler($config['jade_compiler']);
                     $view_path = $event->props('view_path');
                     $view_diretory = $event->props('view_directory');
                     if(strlen($view_diretory) > 0){
@@ -32,7 +34,7 @@ class Main extends Pupcake\plugin
                     $view_cache_enabled = $event->props('view_cache_enabled');
 
                     if(!$view_cache_enabled){
-                        $jade->render($view_path);
+                        $renderer->render($view_path);
                     }
 
                     $cache_template = $path_info['filename'].".html";
