@@ -56,5 +56,7 @@ p hello {{$word}}
 In the jade template above, we are looking for the php varialbe $word which is passed along in the $res->render method
 
 Now navigate to /render_test and you should see:
+```html
 <!DOCTYPE html>
 <p>hello world</p>
+```
