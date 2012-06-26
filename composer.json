@@ -14,7 +14,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "Pupcake/ResponseRender": "*"
+        "Pupcake/ResponseRender": "*",
+        "Pupcake/PHPNativeJade": "*"
     },
     "autoload": {
         "psr-0": {
@@ -23,7 +24,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0.2-dev"
+            "dev-master": "3.0.3-dev"
         }
     }
 }
