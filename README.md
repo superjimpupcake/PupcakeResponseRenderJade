@@ -18,18 +18,12 @@ Before we get started, we would like to set up the following file structures for
 * packages --- the folder to store 3rd party libraries
 * packages/php-jade --- the folder to store the everzet/jade.php library (https://github.com/everzet/jade.php)
 
-We then do git clone https://github.com/everzet/jade.php.git packages/php-jade so we have the everzet/jade.php library in place.
-
 Now we are going to edit public/index.php
 ```php
 <?php
 //Assuming this is public/index.php and the composer vendor directory is ../vendor
 
 require_once __DIR__.'/../vendor/autoload.php';
-
-$loader = new Composer\Autoload\ClassLoader();
-$loader->add("Everzet", "../packages/php-jade/src"); //we need to tell where to look for the php-jade library
-$loader->register();
 
 $app = new Pupcake\Pupcake();
 
@@ -51,7 +45,7 @@ $app->run();
 Now we are going to add views/index.jade
 ```jade
 !!!5
-p hello {{$word}}
+p hello #{word}
 ```
 In the jade template above, we are looking for the php varialbe $word which is passed along in the $res->render method
 
