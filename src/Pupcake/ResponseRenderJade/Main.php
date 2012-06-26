@@ -34,7 +34,7 @@ class Main extends Pupcake\plugin
                     $view_cache_enabled = $event->props('view_cache_enabled');
 
                     if(!$view_cache_enabled){
-                        $renderer->render($view_path);
+                        $renderer->render($view_path, $event->props('data'));
                     }
 
                     $cache_template = $path_info['filename'].".html";
