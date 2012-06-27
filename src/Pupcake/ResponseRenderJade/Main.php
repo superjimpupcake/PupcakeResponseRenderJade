@@ -32,14 +32,18 @@ class Main extends Pupcake\plugin
                     }
 
                     $view_cache_enabled = $event->props('view_cache_enabled');
+                    $cache_template = $view_path.".html";
 
                     if(!$view_cache_enabled){
                         $renderer->render($view_path, $event->props('data'));
                     }
-
-                    $cache_template = $path_info['filename'].".html";
-                    if(is_readable($cache_template)){
-                        require $cache_template;
+                    else{ //cache is enabled, first look to see if the cache_template exists
+                        if(is_readable($cache_template)){
+                            require $cache_template;
+                        }
+                        else{
+                            $renderer->render($view_path, $event->props('data'));
+                        }
                     }
                 }
             }
