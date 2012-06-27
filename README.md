@@ -32,7 +32,11 @@ require_once __DIR__.'/../vendor/autoload.php';
 $app = new Pupcake\Pupcake();
 
 $app->usePlugin("Pupcake.ResponseRender"); //this is required
-$app->usePlugin("Pupcake.ResponseRenderJade", array('jade_compiler' => '/usr/local/bin/jade'));
+/**
+ * $app->usePlugin("Pupcake.ResponseRenderJade") is ok too 
+ * if we do not pass the jade_compiler option to the configuration array, Pupcake.ResponseRenderJade will try to find the default one
+ */
+$app->usePlugin("Pupcake.ResponseRenderJade", array('jade_compiler' => '/usr/local/bin/jade')); 
 
 $app->setViewDirectory("../views");
 $app->setViewEngine("jade");
